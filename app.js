@@ -14,6 +14,7 @@
         var ctrl = this;
         ctrl.finder = function() {
             ctrl.find = MenuSearchService.getMatchedMenuItems();
+            ctrl.items = something ; 
         }
     }
  

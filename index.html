@@ -15,7 +15,7 @@
     <div class="form-group">
       <input ng-model="something" type="text" placeholder="search term" class="form-control">
     </div>
-    <div ng-repeat="something" class="form-group narrow-button">
+    <div ng-repeat="item in ctrl.items" class="form-group narrow-button">
       <button ng-click="ctrl.finder()" class="btn btn-primary">Narrow It Down For Me!</button>
     </div>
 
