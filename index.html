@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en" ng-app="NarrowItDownApp">
   <head>
@@ -13,13 +14,13 @@
     <h1>Narrow Down Your Chinese Menu Choice</h1>
 
     <div class="form-group">
-      <input ng-model="something" type="text" placeholder="search term" class="form-control">
+      <input ng-model="ctrl.something" type="text" placeholder="search term" class="form-control">
     </div>
-    <div ng-repeat="item in ctrl.items" class="form-group narrow-button">
+    <div class="form-group narrow-button">
       <button ng-click="ctrl.finder()" class="btn btn-primary">Narrow It Down For Me!</button>
     </div>
 
-    <found-items found-items="...." on-remove="...."></found-items>
+    <found-items found-items="...." on-remove="...." ng-repeat="item in ctrl.items"></found-items> 
   </div>
 
 </body>

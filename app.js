@@ -13,12 +13,13 @@
         // this is where we will be calling functions from the ctrl
         var ctrl = this;
         ctrl.finder = function() {
-            ctrl.find = MenuSearchService.getMatchedMenuItems();
-            ctrl.items = something ; 
+            ctrl.find = MenuSearchService.getMatchedMenuItems(ctrl.something);
+            ctrl.find.then(value => console.log(value));
+            console.log(ctrl.find);
         }
     }
  
-    MenuSearchService.$inject = ['http']
+    MenuSearchService.$inject = ['$http']
     function MenuSearchService($http) {
         var service = this;
 
@@ -34,10 +35,13 @@
             .then(function (result) {
                 var foundItems = result.data;
                 var myitems = [];
-                // this is where we need to search through the list to get what we need 
-                for (temp in foundItems) {
-                    for (item in foundItems[temp]) {
+                // this is where we need to search through the list to get what we need
+                for (const temp in foundItems) {
+                    for (const item in foundItems[temp].menu_items) {
                         // do something so you are able to get the searched term and put it into a list 
+                        if(foundItems[temp].menu_items[item].description.toLowerCase().includes(searchTerm.toLowerCase())) {
+                            myitems.push(foundItems[temp].menu_items[item]);
+                        }
                     }
                 }
     
@@ -46,14 +50,19 @@
         }
     }
 
+    // this is the directory that we are going to be using 
     function foundItems() {
         
         var ddo = {
+            templateUrl : "index.html",
             restrict : 'E',
             scope: {
-                item: "=foundItem",
+                item: "<",
                 arrayName: '@'
-            }
+            },
+            controller : NarrowItDownController,
+            controllerAs : 'ctrl',
+            bindToController: true,
         };
         return ddo;
     }
